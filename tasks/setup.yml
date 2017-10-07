@@ -1,0 +1,6 @@
+- name: Add user {{ traefik_user }}
+  user: name="{{ traefik_user }}" shell=/bin/bash
+
+- name: Creates directories
+  file: path="{{ item }}" owner="{{ traefik_user }}" group="{{ traefik_user }}" state=directory
+  with_items: "{{ traefik_dirs }}"

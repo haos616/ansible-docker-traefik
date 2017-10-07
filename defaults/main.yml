@@ -1,0 +1,34 @@
+traefik_home_dir: ""
+traefik_user: "root"
+traefik_port: "8080"
+traefik_image: "haos616/traefik:1.3.8"
+traefik_user_dir: "{{ traefik_home_dir }}/{{ traefik_user }}"
+traefik_configs_dir: "{{ traefik_user_dir }}/compose"
+traefik_project_name: "load_balancing"
+traefik_docker_compose_dir: "{{ traefik_configs_dir }}/{{ traefik_project_name }}"
+traefik_docker_compose_file: "{{ traefik_docker_compose_dir }}/docker-compose.yml"
+
+traefik_dirs:
+  - "{{ traefik_configs_dir }}"
+  - "{{ traefik_docker_compose_dir }}"
+
+traefik_docker:
+  project_name: "{{ traefik_project_name }}"
+  definition:
+    version: "3"
+    services:
+      traefik:
+        restart: always
+        image: "{{ traefik_image }}"
+        container_name: traefik
+        networks:
+          - web
+        volumes:
+          - "/var/run/docker.sock:/var/run/docker.sock"
+        ports:
+          - "{{ traefik_port }}:8080"
+          - "80:80"
+          - "443:443"
+  networks:
+    web:
+      external: true

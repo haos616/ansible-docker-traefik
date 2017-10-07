@@ -1,0 +1,17 @@
+---
+galaxy_info:
+  author: Haos616
+  description: Role to use Traefik in Docker
+  license: MIT
+  min_ansible_version: 2.4.0.0
+  platforms:
+  - name: Debian
+    versions:
+    - wheezy
+  - name: Ubuntu
+    versions:
+    - xenial
+  categories:
+  - docker
+  - traefik
+  - load-balancing

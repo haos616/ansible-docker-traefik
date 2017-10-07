@@ -1,0 +1,10 @@
+- name: Generate
+  template: src="docker-compose.yml.j2" dest="{{ traefik_docker_compose_file }}"
+
+- name: Create a network web
+  docker_network:
+    name: web
+
+- docker_service:
+    project_name: "{{ traefik_docker.project_name }}"
+    definition: "{{ traefik_docker.definition }}"
