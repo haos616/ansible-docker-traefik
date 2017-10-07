@@ -7,6 +7,8 @@ traefik_configs_dir: "{{ traefik_user_dir }}/compose"
 traefik_project_name: "load_balancing"
 traefik_docker_compose_dir: "{{ traefik_configs_dir }}/{{ traefik_project_name }}"
 traefik_docker_compose_file: "{{ traefik_docker_compose_dir }}/docker-compose.yml"
+traefik_domain: "localhost"
+traefik_web_user: "admin"
 
 traefik_dirs:
   - "{{ traefik_configs_dir }}"
@@ -21,6 +23,11 @@ traefik_docker:
         restart: always
         image: "{{ traefik_image }}"
         container_name: traefik
+        environment:
+          - 'TRAEFIK_DOMAIN={{ traefik_domain }}'
+          - 'TRAEFIK_ACME_EMAIL={{ traefik_acme_email }}'
+          - "TRAEFIK_WEB_PASSWORD={{ traefik_web_password }}"
+          - "TRAEFIK_WEB_USER={{ traefik_web_user }}"
         networks:
           - web
         volumes:
