@@ -1,3 +1,8 @@
+- assert:
+    that:
+     - "traefik_acme_email is defined"
+     - "traefik_web_password is defined"
+
 - name: Generate
   template: src="docker-compose.yml.j2" dest="{{ traefik_docker_compose_file }}"
 
